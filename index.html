@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial: Desarrollo Móvil y Gestión de Proyectos</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="badge">Actividad 12112026</span>
+        <h1>Tutorial de Desarrollo Móvil</h1>
+      </div>
+      <button id="menuToggle" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰ Menú</button>
+      <nav id="mainNav" class="nav-links" aria-label="Navegación principal">
+        <a href="#control-versiones">Control de Versiones</a>
+        <a href="#persistencia">Persistencia y Datos</a>
+        <a href="#sensores">Sensores</a>
+        <a href="#multimedia">Multimedia</a>
+        <a href="#servicios">Servicios y Nube</a>
+        <a href="#librerias">Librerías y Toolkits</a>
+        <a href="#depuracion">Depuración y Seguridad</a>
+        <a href="#referencias">Referencias</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h2>Guía Integral de Arquitectura y Desarrollo de Aplicaciones Móviles</h2>
+      <p>
+        Recurso interactivo y responsivo sobre control de versiones, almacenamiento de datos, hardware móvil,
+        multimedia, servicios en la nube, herramientas de desarrollo y seguridad.
+      </p>
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="Buscar tema, concepto o palabra clave (ej. SQLite, Git, APK, Firebase)..." aria-label="Buscar en el tutorial" />
+        <button id="clearSearch" type="button">Limpiar</button>
+      </div>
+      <p id="searchStatus" class="search-status"></p>
+    </div>
+  </section>
+
+  <main class="container main-content">
+    <!-- 1. Control de versiones -->
+    <article id="control-versiones" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">01</span>
+        <h2>Control de Versiones</h2>
+      </div>
+
+      <h3>Definición</h3>
+      <p>
+        El <strong>control de versiones</strong> (VCS, por sus siglas en inglés) es un sistema que registra los cambios
+        realizados sobre un archivo o conjunto de archivos a lo largo del tiempo, permitiendo recuperar versiones
+        específicas, comparar modificaciones, revertir errores y colaborar de forma ordenada en equipo sin sobrescribir el trabajo de otros desarrolladores.
+      </p>
+
+      <h3>¿Cuáles son? (Tipos de sistemas de control de versiones)</h3>
+      <div class="grid-3">
+        <div class="info-box">
+          <h4>1. Locales (LVCS)</h4>
+          <p>
+            Almacenan las revisiones de archivos en una base de datos local dentro de la misma computadora del usuario
+            (mediante parches o diferencias entre versiones). Ejemplo: <em>RCS (Revision Control System)</em>.
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>2. Centralizados (CVCS)</h4>
+          <p>
+            Utilizan un único servidor central que contiene todos los archivos versionados y varios clientes que descargan
+            copias de trabajo desde ese servidor. Ejemplos: <em>Subversion (SVN)</em>, <em>CVS</em>, <em>Perforce</em>.
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>3. Distribuidos (DVCS)</h4>
+          <p>
+            Cada desarrollador clona una copia completa del repositorio, incluyendo todo su historial. Esto permite trabajar
+            sin conexión y tener múltiples respaldos completos. Ejemplos: <em>Git</em>, <em>Mercurial</em>.
+          </p>
+        </div>
+      </div>
+
+      <h3>Características, Ventajas y Desventajas</h3>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Características</th>
+              <th>Ventajas</th>
+              <th>Desventajas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Local (LVCS)</strong></td>
+              <td>Historial guardado localmente mediante conjuntos de parches.</td>
+              <td>Rápido, simple, no requiere red ni servidor externo.</td>
+              <td>Imposible colaborar en equipo; si falla el disco local se pierde todo el historial.</td>
+            </tr>
+            <tr>
+              <td><strong>Centralizado (CVCS)</strong></td>
+              <td>Un servidor central único gestiona permisos y versiones.</td>
+              <td>Control administrativo centralizado; fácil de entender qué hace cada miembro.</td>
+              <td>Punto único de fallo (si cae el servidor, nadie puede guardar cambios ni ver historial).</td>
+            </tr>
+            <tr>
+              <td><strong>Distribuido (DVCS)</strong></td>
+              <td>Repositorios completos en cada cliente; ramificación y fusión avanzadas.</td>
+              <td>Trabajo offline, alta velocidad, redundancia total, flujo flexible por ramas.</td>
+              <td>Curva de aprendizaje inicial más alta; mayor uso de espacio local en proyectos muy pesados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Funcionamiento</h3>
+      <p>
+        En sistemas modernos como <strong>Git</strong>, el flujo de trabajo se organiza en tres estados principales:
+      </p>
+      <ul>
+        <li><strong>Directorio de trabajo (Working Directory):</strong> Carpeta donde se editan los archivos actuales.</li>
+        <li><strong>Área de preparación (Staging Area / Index):</strong> Zona intermedia donde se seleccionan los cambios exactos que formarán parte de la siguiente instantánea.</li>
+        <li><strong>Repositorio (.git):</strong> Base de datos donde se almacenan permanentemente las instantáneas (<em>commits</em>) identificadas mediante un hash criptográfico SHA-1/SHA-256.</li>
+      </ul>
+
+      <h3>Rastreo y Gestión de Cambios</h3>
+      <p>
+        El control de versiones rastrea quién modificó cada línea, cuándo lo hizo y por qué (mediante mensajes de confirmación).
+        Para gestionar cambios en paralelo se utilizan <strong>ramas (branches)</strong> independientes (por ejemplo, <code>main</code> para producción,
+        <code>develop</code> para integración y <code>feature/login</code> para nuevas funciones), que posteriormente se integran mediante
+        operaciones de fusión (<code>merge</code>) o reorganización (<code>rebase</code>), resolviendo conflictos de manera controlada.
+      </p>
+
+      <h3>Ejemplos Prácticos</h3>
+      <pre><code># Inicializar repositorio, preparar cambios y guardar versión
+git init
+git add index.html css/styles.css
+git commit -m "feat: estructura inicial del tutorial responsivo"
+
+# Crear una rama para una nueva funcionalidad y fusionarla
+git checkout -b feature/buscador
+git commit -am "feat: filtro de búsqueda en tiempo real"
+git checkout main
+git merge feature/buscador</code></pre>
+    </article>
+
+    <!-- 2. Persistencia y acceso a datos -->
+    <article id="persistencia" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">02</span>
+        <h2>Persistencia y Acceso a Datos</h2>
+      </div>
+
+      <h3>Definición</h3>
+      <p>
+        La <strong>persistencia de datos</strong> es la capacidad de una aplicación móvil para conservar información más allá del ciclo
+        de vida de ejecución del proceso o del cierre de la aplicación, permitiendo recuperarla, consultarla y actualizarla posteriormente.
+      </p>
+
+      <h3>Características</h3>
+      <ul>
+        <li><strong>Durabilidad:</strong> Los datos permanecen almacenados aunque el dispositivo se reinicie o la app se cierre.</li>
+        <li><strong>Integridad y consistencia:</strong> Garantiza que la información no se corrompa durante lecturas o escrituras concurrentes.</li>
+        <li><strong>Seguridad y privacidad:</strong> Aislamiento mediante <em>sandboxing</em> por aplicación y cifrado de datos sensibles.</li>
+        <li><strong>Rendimiento:</strong> Acceso rápido acorde a las limitaciones de memoria y batería de dispositivos móviles.</li>
+      </ul>
+
+      <h3>Formas de Persistencia en Dispositivos Móviles</h3>
+      <div class="grid-3">
+        <div class="info-box">
+          <h4>1. Archivos</h4>
+          <p>
+            Almacenamiento directo en el sistema de archivos interno (privado de la app) o externo (compartido).
+            Ideal para documentos, imágenes, configuraciones JSON/XML o caché binaria. Incluye almacenamientos clave-valor ligeros
+            como <code>SharedPreferences</code> / <code>DataStore</code> (Android) o <code>UserDefaults</code> (iOS).
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>2. Bases de Datos Locales</h4>
+          <p>
+            Motores embebidos dentro del dispositivo que permiten consultas estructuradas, índices y transacciones ACID sin conexión a internet.
+            Ejemplos: <strong>SQLite</strong>, <strong>Realm</strong>, <strong>ObjectBox</strong>.
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>3. Bases de Datos Remotas (Servicios Web)</h4>
+          <p>
+            Almacenamiento centralizado en servidores en la nube accesibles mediante APIs REST o GraphQL sobre HTTP/HTTPS.
+            Permite sincronización multi-dispositivo y respaldo en tiempo real (ej. Firebase Firestore, PostgreSQL vía API).
+          </p>
+        </div>
+      </div>
+
+      <h3>Tipos de Datos Almacenables según la Forma de Persistencia</h3>
+      <ul>
+        <li><strong>Preferencias / Clave-Valor:</strong> Tipos primitivos (booleanos, enteros, cadenas, flotantes) para configuraciones de usuario (tema oscuro, idioma).</li>
+        <li><strong>Archivos planos y binarios:</strong> Texto (TXT, JSON, CSV), multimedia (PNG, MP4, MP3), PDF y cachés offline.</li>
+        <li><strong>Bases de datos locales:</strong> Registros relacionales estructurados, catálogos offline, historial de transacciones y colas de sincronización.</li>
+        <li><strong>Bases de datos remotas:</strong> Perfiles de usuario, datos compartidos entre usuarios, analíticas globales e inventario en tiempo real.</li>
+      </ul>
+
+      <h3>Mecanismos de Control de Acceso a Medios Persistentes</h3>
+      <ul>
+        <li><strong>Biblioteca de clases (APIs nativas de E/S):</strong> Clases estándar del SDK para abrir flujos de bytes/caracteres, gestionar permisos y leer/escribir archivos (ej. <code>java.io</code>, <code>java.nio</code>, <code>FileManager</code> en Swift).</li>
+        <li><strong>Clases de SQLite:</strong> Interfaces de bajo nivel como <code>SQLiteOpenHelper</code> y <code>SQLiteDatabase</code> (Android) o la librería C <code>sqlite3</code> (iOS) que ejecutan sentencias SQL directamente y devuelven cursores.</li>
+        <li><strong>Mapeo Relacional de Objetos (ORM):</strong> Capa de abstracción que convierte tablas de bases de datos en objetos del lenguaje de programación, evitando SQL repetitivo y validando consultas en tiempo de compilación. Ejemplos: <strong>Room</strong> (Android), <strong>Core Data / SwiftData</strong> (iOS).</li>
+      </ul>
+
+      <h3>Proceso de Autenticación y Consumo de Servicios Web</h3>
+      <ol>
+        <li><strong>Solicitud de credenciales:</strong> El usuario envía credenciales (usuario/contraseña o proveedor OAuth2/OpenID Connect) por HTTPS.</li>
+        <li><strong>Emisión de Token:</strong> El servidor valida y devuelve un token de acceso (como <strong>JWT - JSON Web Token</strong>) y un <em>Refresh Token</em>.</li>
+        <li><strong>Almacenamiento seguro:</strong> La app guarda el token en almacenamiento cifrado (<em>EncryptedSharedPreferences</em> / <em>Android Keystore</em> o <em>iOS Keychain</em>).</li>
+        <li><strong>Consumo de API:</strong> Cada petición HTTP incluye el encabezado <code>Authorization: Bearer &lt;token&gt;</code>; la respuesta (generalmente JSON) se deserializa en objetos del modelo.</li>
+      </ol>
+
+      <h3>Ejemplos</h3>
+      <pre><code>// Ejemplo conceptual de consulta a API REST con Token JWT en JavaScript (Fetch)
+async function obtenerPerfil(token) {
+  const respuesta = await fetch("https://api.ejemplo.com/v1/perfil", {
+    method: "GET",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  });
+  if (!respuesta.ok) throw new Error("Error de autenticación o red");
+  return await respuesta.json();
+}</code></pre>
+    </article>
+
+    <!-- 3. Gestión de sensores -->
+    <article id="sensores" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">03</span>
+        <h2>Gestión de Sensores</h2>
+      </div>
+
+      <h3>Definición</h3>
+      <p>
+        Los <strong>sensores móviles</strong> son componentes de hardware (o virtuales basados en software) integrados en smartphones y tabletas
+        que detectan cambios físicos en el entorno o en el movimiento del dispositivo y los transforman en señales digitales interpretables por la aplicación.
+      </p>
+
+      <h3>Tipos de Sensores en Dispositivos Móviles</h3>
+      <div class="grid-3">
+        <div class="info-box">
+          <h4>Sensores de Movimiento</h4>
+          <p>
+            Miden fuerzas de aceleración y rotación en tres ejes (X, Y, Z): <strong>Acelerómetro</strong>, <strong>Giroscopio</strong>,
+            sensor de gravedad y podómetro (contador de pasos).
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>Sensores de Posición</h4>
+          <p>
+            Determinan la ubicación física y orientación espacial: <strong>Magnetómetro</strong> (brújula digital),
+            <strong>Sensor de proximidad</strong> (apaga pantalla en llamadas) y receptor <strong>GNSS/GPS</strong>.
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>Sensores Ambientales</h4>
+          <p>
+            Miden parámetros del entorno externo: <strong>Sensor de luz ambiental</strong> (brillo automático),
+            <strong>Barómetro</strong> (presión atmosférica/altitud), termómetro e higrómetro.
+          </p>
+        </div>
+      </div>
+
+      <h3>Proceso de Gestión de Sensores</h3>
+      <ol>
+        <li><strong>Habilitación:</strong> Se obtiene una instancia del gestor de sensores del sistema (ej. <code>SensorManager</code> en Android o <code>CMMotionManager</code> en iOS), se verifica si el sensor existe y se registra un oyente (<em>listener</em>) definiendo la frecuencia de muestreo.</li>
+        <li><strong>Obtención:</strong> El sistema operativo dispara eventos periódicos cuando cambian los valores del sensor, entregando un arreglo de mediciones (ej. aceleración en m/s² en ejes X, Y, Z) junto con una marca de tiempo y nivel de precisión.</li>
+        <li><strong>Procesamiento de información:</strong> Se aplican filtros (como filtro paso bajo para aislar la gravedad o fusión de sensores) para eliminar ruido, ejecutar la lógica de negocio y finalmente <strong>desregistrar el sensor</strong> en <code>onPause()</code> para ahorrar batería.</li>
+      </ol>
+    </article>
+
+    <!-- 4. Uso de recursos multimedia -->
+    <article id="multimedia" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">04</span>
+        <h2>Uso de Recursos Multimedia</h2>
+      </div>
+
+      <h3>Definición</h3>
+      <p>
+        Los <strong>recursos multimedia</strong> en aplicaciones móviles comprenden la integración, reproducción, captura y manipulación de contenido
+        visual y auditivo para enriquecer la experiencia del usuario y facilitar la comunicación de información.
+      </p>
+
+      <h3>Tipos de Recursos Multimedia</h3>
+      <ul>
+        <li><strong>Imágenes:</strong> Gráficos rasterizados (PNG, JPEG, WebP) para fotografías y texturas, y gráficos vectoriales (SVG, VectorDrawable) que escalan sin pérdida de calidad en distintas densidades de pantalla.</li>
+        <li><strong>Audio:</strong> Efectos de sonido cortos, música de fondo y notas de voz en formatos como MP3, AAC, OGG o WAV.</li>
+        <li><strong>Video:</strong> Secuencias audiovisuales locales o en <em>streaming</em> adaptativo (HLS, DASH) codificadas en H.264/AVC, H.265/HEVC o VP9 dentro de contenedores MP4/WebM.</li>
+        <li><strong>Animaciones y elementos visuales dinámicos:</strong> Transiciones de interfaz, animaciones vectoriales basadas en JSON (<strong>Lottie</strong>), GIF animados, gráficos 2D/3D (OpenGL ES, Vulkan, Metal).</li>
+      </ul>
+
+      <h3>Estructura de Proyectos donde se Almacenan</h3>
+      <ul>
+        <li><strong>Android (Proyecto Gradle):</strong>
+          <ul>
+            <li><code>res/drawable/</code> y <code>res/mipmap/</code>: Imágenes, íconos y gráficos vectoriales organizados por densidad (<code>mdpi</code>, <code>hdpi</code>, <code>xhdpi</code>, <code>xxhdpi</code>).</li>
+            <li><code>res/raw/</code>: Archivos de audio o video sin compresión adicional accesibles mediante ID de recurso.</li>
+            <li><code>res/anim/</code> y <code>res/animator/</code>: Definiciones XML de animaciones.</li>
+            <li><code>assets/</code>: Archivos multimedia arbitrarios (como animaciones Lottie o fuentes) leídos por ruta directa.</li>
+          </ul>
+        </li>
+        <li><strong>iOS (Xcode):</strong> <code>Assets.xcassets</code> para catálogos de imágenes adaptativas y el <em>Main Bundle</em> para audio/video.</li>
+      </ul>
+
+      <h3>Componentes de Software en el Uso de Multimedia</h3>
+      <ul>
+        <li><strong>Reproductores y motores:</strong> <code>MediaPlayer</code> y <strong>ExoPlayer (Media3)</strong> en Android; <code>AVPlayer</code> y <code>AVAudioPlayer</code> en iOS.</li>
+        <li><strong>Captura de medios:</strong> APIs de cámara y micrófono como <code>CameraX</code> / <code>Camera2</code>, <code>MediaRecorder</code> (Android) y <code>AVFoundation</code> (iOS).</li>
+        <li><strong>Librerías de carga y caché de imágenes:</strong> <em>Glide</em>, <em>Coil</em> o <em>Picasso</em> para decodificación asíncrona y gestión eficiente de memoria RAM.</li>
+      </ul>
+    </article>
+
+    <!-- 5. Servicios y notificaciones -->
+    <article id="servicios" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">05</span>
+        <h2>Servicios y Notificaciones</h2>
+      </div>
+
+      <h3>Definición</h3>
+      <p>
+        Los <strong>servicios</strong> son componentes de aplicación capaces de ejecutar operaciones de larga duración sin proporcionar una interfaz
+        de usuario directa, mientras que las <strong>notificaciones</strong> son mensajes visuales o sonoros mostrados fuera de la interfaz de la app
+        para informar al usuario sobre eventos relevantes o acciones pendientes.
+      </p>
+
+      <h3>Tareas en Segundo Plano en Aplicaciones Móviles</h3>
+      <p>
+        Son procesos que se ejecutan cuando la aplicación no está visible en primer plano (por ejemplo: sincronización de datos, descarga de archivos,
+        rastreo de ubicación o reproducción de música). Los sistemas móviles modernos imponen restricciones estrictas (como <em>Doze Mode</em> en Android)
+        para optimizar el consumo de batería, exigiendo el uso de planificadores inteligentes.
+      </p>
+
+      <h3>Tratamiento de Notificaciones en Aplicaciones Móviles</h3>
+      <ul>
+        <li><strong>Notificaciones Locales:</strong> Programadas directamente por la aplicación dentro del dispositivo (ej. recordatorios, alarmas).</li>
+        <li><strong>Notificaciones Push (Remotas):</strong> Enviadas desde un servidor externo hacia el dispositivo mediante servicios de mensajería del sistema operativo, incluso si la app está cerrada.</li>
+        <li><strong>Canales y Prioridades:</strong> Agrupación temática (en Android 8.0+) que permite al usuario configurar sonido, vibración e importancia por categoría, además de soportar acciones rápidas y respuestas directas.</li>
+      </ul>
+
+      <h3>Proceso de Implementación</h3>
+      <ul>
+        <li><strong>Proveedores de contenido (Content Providers):</strong> Gestionan el acceso estructurado a un repositorio central de datos y permiten compartir información de forma segura entre distintas aplicaciones mediante URIs y permisos explícitos (ej. acceder a contactos o galería).</li>
+        <li><strong>Tareas en segundo plano:</strong> Se implementan mediante <strong>WorkManager</strong> (Android) o <strong>BackgroundTasks</strong> (iOS) para tareas diferibles garantizadas, o mediante <em>Foreground Services</em> (con notificación persistente visible) para procesos inmediatos como navegación GPS.</li>
+        <li><strong>Notificaciones:</strong> Se solicita permiso explícito al usuario (<code>POST_NOTIFICATIONS</code>), se registra el canal de notificación, se construye el objeto mediante <code>NotificationCompat.Builder</code> (o <code>UNUserNotificationCenter</code>) y se despacha con un identificador único.</li>
+      </ul>
+
+      <h3>Servicios de Cómputo en la Nube Aplicables</h3>
+      <ul>
+        <li><strong>Notificaciones Push:</strong> <em>Firebase Cloud Messaging (FCM)</em> y <em>Apple Push Notification service (APNs)</em>.</li>
+        <li><strong>Backend como Servicio (BaaS):</strong> <em>Firebase</em>, <em>Supabase</em> y <em>AWS Amplify</em> (autenticación, bases de datos en tiempo real, almacenamiento de archivos y funciones serverless).</li>
+        <li><strong>Infraestructura y APIs escalables:</strong> <em>Google Cloud Platform</em>, <em>Amazon Web Services (AWS)</em> y <em>Microsoft Azure</em>.</li>
+      </ul>
+    </article>
+
+    <!-- 6. Librerías y toolkits para desarrollo móvil -->
+    <article id="librerias" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">06</span>
+        <h2>Librerías y Toolkits para Desarrollo Móvil</h2>
+      </div>
+
+      <h3>¿Qué es una Librería y qué es un Toolkit?</h3>
+      <div class="grid-2">
+        <div class="info-box">
+          <h4>Librería (Biblioteca)</h4>
+          <p>
+            Es una colección de código preescrito (clases, funciones y métodos) diseñada para resolver un problema específico
+            (ej. peticiones HTTP, manejo de fechas o carga de imágenes). El desarrollador mantiene el control del flujo de la aplicación
+            e invoca la librería cuando la necesita.
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>Toolkit (Kit de Herramientas / UI Toolkit)</h4>
+          <p>
+            Es un conjunto integral de herramientas, componentes de interfaz de usuario, compiladores, depuradores y APIs
+            que proporcionan la base completa para construir, diseñar y compilar toda una aplicación dentro de un ecosistema.
+          </p>
+        </div>
+      </div>
+
+      <h3>Librerías de Funciones Especializadas</h3>
+      <ul>
+        <li><strong>Redes y consumo de APIs:</strong> <em>Retrofit</em>, <em>OkHttp</em>, <em>Ktor</em>, <em>Alamofire</em>, <em>Axios</em>.</li>
+        <li><strong>Serialización JSON:</strong> <em>Gson</em>, <em>Moshi</em>, <em>Kotlinx.serialization</em>.</li>
+        <li><strong>Inyección de dependencias:</strong> <em>Dagger Hilt</em>, <em>Koin</em>.</li>
+        <li><strong>Procesamiento de imágenes y gráficos:</strong> <em>Glide</em>, <em>Coil</em>, <em>Lottie</em>, <em>MPAndroidChart</em>.</li>
+      </ul>
+
+      <h3>Diferenciar Toolkits Aplicables a la Programación Móvil</h3>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Toolkit</th>
+              <th>Enfoque / Plataforma</th>
+              <th>Lenguaje Principal</th>
+              <th>Características Diferenciales</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Jetpack Compose</strong></td>
+              <td>Nativo Android</td>
+              <td>Kotlin</td>
+              <td>UI declarativa moderna de Google; elimina archivos XML y acelera el desarrollo nativo.</td>
+            </tr>
+            <tr>
+              <td><strong>SwiftUI</strong></td>
+              <td>Nativo iOS / Apple</td>
+              <td>Swift</td>
+              <td>Framework declarativo de Apple para crear interfaces nativas en iPhone, iPad y Apple Watch.</td>
+            </tr>
+            <tr>
+              <td><strong>Flutter</strong></td>
+              <td>Multiplataforma (Compilado)</td>
+              <td>Dart</td>
+              <td>Renderiza sus propios widgets mediante motor gráfico propio (Impeller/Skia) a 60/120 fps.</td>
+            </tr>
+            <tr>
+              <td><strong>React Native</strong></td>
+              <td>Multiplataforma (Nativo-puente)</td>
+              <td>JavaScript / TypeScript</td>
+              <td>Utiliza componentes nativos reales de cada plataforma y ecosistema web React.</td>
+            </tr>
+            <tr>
+              <td><strong>.NET MAUI</strong></td>
+              <td>Multiplataforma</td>
+              <td>C# / XAML</td>
+              <td>Evolución de Xamarin.Forms respaldada por Microsoft para Android, iOS, Windows y macOS.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- 7. Depuración y seguridad -->
+    <article id="depuracion" class="topic-card">
+      <div class="topic-header">
+        <span class="topic-num">07</span>
+        <h2>Depuración y Seguridad</h2>
+      </div>
+
+      <h3>¿Qué es la Depuración y la Seguridad?</h3>
+      <div class="grid-2">
+        <div class="info-box">
+          <h4>Depuración (Debugging)</h4>
+          <p>
+            Es el proceso sistemático de identificar, analizar, aislar y corregir errores (<em>bugs</em>), fugas de memoria
+            y cuellos de botella de rendimiento en el código fuente antes y después del despliegue de la aplicación.
+          </p>
+        </div>
+        <div class="info-box">
+          <h4>Seguridad Móvil</h4>
+          <p>
+            Es el conjunto de prácticas, controles criptográficos y arquitecturas destinadas a proteger la integridad de la app,
+            la confidencialidad de los datos del usuario y las comunicaciones frente a ingeniería inversa, interceptación y accesos no autorizados.
+          </p>
+        </div>
+      </div>
+
+      <h3>Herramientas de Depuración en el Entorno de Desarrollo Móvil</h3>
+      <ul>
+        <li><strong>Breakpoints y Step-by-Step Debugger:</strong> Puntos de interrupción en Android Studio o Xcode que pausan la ejecución para inspeccionar variables, pila de llamadas (<em>Call Stack</em>) y evaluar expresiones en vivo.</li>
+        <li><strong>Logcat / Consola de sistema:</strong> Visor de registros en tiempo real filtrable por nivel de severidad (Verbose, Debug, Info, Warning, Error) y etiqueta.</li>
+        <li><strong>Android Profiler / Xcode Instruments:</strong> Herramientas visuales para monitorear uso de CPU, asignación de memoria RAM, tráfico de red y consumo energético.</li>
+        <li><strong>Layout Inspector / View Debugger:</strong> Inspección jerárquica en 3D de los componentes visuales renderizados en pantalla.</li>
+        <li><strong>Network Inspector / Proxies (Charles, Proxyman):</strong> Análisis de peticiones y respuestas HTTP/HTTPS para validar encabezados y cargas útiles.</li>
+      </ul>
+
+      <h3>Prácticas Clave de Seguridad Móvil</h3>
+      <ul>
+        <li><strong>Ofuscación de código:</strong> Uso de <em>R8 / ProGuard</em> para renombrar clases y métodos dificultando la ingeniería inversa del APK/AAB.</li>
+        <li><strong>Cifrado en tránsito y reposo:</strong> Uso obligatorio de TLS/HTTPS, <em>Certificate Pinning</em> y almacenamiento de llaves en hardware seguro (<em>Android Keystore</em> / <em>Secure Enclave</em>).</li>
+        <li><strong>Principio de mínimo privilegio:</strong> Solicitar únicamente los permisos estrictamente indispensables en tiempo de ejecución.</li>
+      </ul>
+    </article>
+
+    <!-- Referencias -->
+    <article id="referencias" class="topic-card references-card">
+      <div class="topic-header">
+        <span class="topic-num">08</span>
+        <h2>Referencias Bibliográficas y Documentación Oficial</h2>
+      </div>
+      <ol class="ref-list">
+        <li>Chacon, S., &amp; Straub, B. (2014). <em>Pro Git</em> (2nd ed.). Apress. <a href="https://git-scm.com/book/es/v2" target="_blank" rel="noopener">https://git-scm.com/book/es/v2</a></li>
+        <li>Google Developers. (2025). <em>Guía para desarrolladores de Android: Almacenamiento de datos, Sensores, Multimedia y WorkManager</em>. Android Developers. <a href="https://developer.android.com/guide" target="_blank" rel="noopener">https://developer.android.com/guide</a></li>
+        <li>Apple Inc. (2025). <em>Apple Developer Documentation: SwiftUI, AVFoundation, Core Motion &amp; Security</em>. <a href="https://developer.apple.com/documentation/" target="_blank" rel="noopener">https://developer.apple.com/documentation/</a></li>
+        <li>OWASP Foundation. (2024). <em>OWASP Mobile Application Security Verification Standard (MASVS)</em>. <a href="https://mas.owasp.org/MASVS/" target="_blank" rel="noopener">https://mas.owasp.org/MASVS/</a></li>
+        <li>Google. (2025). <em>Firebase Cloud Messaging &amp; Cloud Services Documentation</em>. <a href="https://firebase.google.com/docs" target="_blank" rel="noopener">https://firebase.google.com/docs</a></li>
+        <li>Flutter Team. (2025). <em>Flutter Documentation: Architectural Overview</em>. Google. <a href="https://docs.flutter.dev/" target="_blank" rel="noopener">https://docs.flutter.dev/</a></li>
+      </ol>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Sitio Web Responsivo ("Tutorial") &bull; Estructurado en HTML5, CSS3 y JavaScript &bull; Actividad 12112026</p>
+      <button id="backToTop" class="back-to-top" type="button">↑ Volver arriba</button>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
